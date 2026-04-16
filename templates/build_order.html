@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <h2>4) Build Your {{ category }} Order</h2>
+
+    <form method="post" class="form-grid">
+        <label for="size">Size *</label>
+        <select id="size" name="size" required>
+            <option value="">-- Select size --</option>
+            {% for option in menu_options.size_options %}
+                <option value="{{ option }}" {% if form_data.size == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="bread_or_tortilla">Bread or Tortilla *</label>
+        <select id="bread_or_tortilla" name="bread_or_tortilla" required>
+            <option value="">-- Select one --</option>
+            {% for option in menu_options.bread_or_tortilla_options %}
+                <option value="{{ option }}" {% if form_data.bread_or_tortilla == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="protein">Protein *</label>
+        <select id="protein" name="protein" required>
+            <option value="">-- Select protein --</option>
+            {% for option in menu_options.protein_options %}
+                <option value="{{ option }}" {% if form_data.protein == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="cheese">Cheese (Optional)</label>
+        <select id="cheese" name="cheese">
+            <option value="">-- No cheese --</option>
+            {% for option in menu_options.cheese_options %}
+                <option value="{{ option }}" {% if form_data.cheese == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+
+        <fieldset>
+            <legend>Toppings (Optional)</legend>
+            {% for item in menu_options.toppings %}
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="toppings" value="{{ item }}" {% if item in form_data.toppings %}checked{% endif %}>
+                    {{ item }}
+                </label>
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Dressings (Optional)</legend>
+            {% for item in menu_options.dressings %}
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="dressings" value="{{ item }}" {% if item in form_data.dressings %}checked{% endif %}>
+                    {{ item }}
+                </label>
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Add-ons (Optional, +$0.75 each)</legend>
+            {% for item in menu_options.addons %}
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="addons" value="{{ item }}" {% if item in form_data.addons %}checked{% endif %}>
+                    {{ item }}
+                </label>
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit">Continue to Review</button>
+    </form>
+</section>
+
+<section class="card summary-card">
+    <h3>Current Order Preview</h3>
+    {% if summary %}
+        <p>{{ summary }}</p>
+    {% else %}
+        <p>Select your options and press Continue to see the full summary.</p>
+    {% endif %}
+    <p><strong>Running Total:</strong> {{ running_total }}</p>
+</section>
+{% endblock %}

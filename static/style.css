@@ -1,0 +1,165 @@
+/* Bistro Burnett class project styles.
+   Keep styling simple and beginner-friendly. */
+
+:root {
+    --primary: #8b1e3f;
+    --light: #fff7f9;
+    --text: #1f1f1f;
+    --border: #d9c8ce;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background: #f7f7f7;
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--primary);
+    color: white;
+    padding: 1rem 1.5rem;
+}
+
+.site-header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-weight: bold;
+}
+
+.logo-box {
+    width: 50px;
+    height: 50px;
+    background: white;
+    color: var(--primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+.card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+input,
+select,
+button {
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #bcbcbc;
+    font-size: 1rem;
+}
+
+button,
+.button-link {
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.button-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.button-link {
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+}
+
+.choice-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    background: var(--light);
+    display: block;
+}
+
+.category-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+fieldset {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+}
+
+.checkbox-inline {
+    display: inline-block;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.detail-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.inline-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid var(--border);
+    padding: 0.5rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.flash {
+    padding: 0.7rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.flash-error {
+    background: #ffe5e5;
+    border: 1px solid #e5a6a6;
+}
+
+.flash-success {
+    background: #e9f9e9;
+    border: 1px solid #9fd39f;
+}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <h2>6) Verify Information and Payment Notice</h2>
+
+    <p><strong>Name:</strong> {{ customer_name }}</p>
+    <p><strong>Phone:</strong> {{ phone_number }}</p>
+    <p><strong>Order Total:</strong> {{ total_display }}</p>
+
+    <p>Payment is completed at the counter when you pick up your order.</p>
+
+    <h3>Accepted Payment Methods</h3>
+    <ul>
+        <li>Campus Cash Card</li>
+        <li>Apple Pay</li>
+        <li>Cash</li>
+    </ul>
+
+    <form method="post">
+        <button type="submit">Submit Order</button>
+    </form>
+</section>
+{% endblock %}

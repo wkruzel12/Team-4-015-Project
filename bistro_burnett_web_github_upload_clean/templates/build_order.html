@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% block header_title %}Build Your Order{% endblock %}
+{% block header_subtitle %}<p>{{ order.category|title }}</p>{% endblock %}
+{% block body %}
+<main class="build-layout" data-category="{{ order.category }}">
+    <form method="post" class="build-form" id="build-form">
+        <section class="builder-section">
+            <div class="section-heading">
+                <img src="{{ url_for('static', filename='assets/bread.png') }}" alt="Base">
+                <h2>Base Selection</h2>
+            </div>
+            {% if order.category == 'sandwiches' %}
+            <div class="radio-list">
+                <span class="field-label">Size</span>
+                <label class="option-row">
+                    <span class="option-control"><input type="radio" name="size" value="{{ unset }}" {% if not order.size %}checked{% endif %}></span>
+                    <span class="option-name">No selection yet</span>
+                    <span class="option-meta"></span>
+                </label>
+                {% for item in entree_items %}
+                <label class="option-row">
+                    <span class="option-control"><input type="radio" name="size" value="{{ item.name }}" data-price="{{ item.price }}" {% if order.size == item.name %}checked{% endif %}></span>
+                    <span class="option-name">{{ item.name }} Sandwich</span>
+                    <span class="option-meta">${{ '%.2f'|format(item.price) }}</span>
+                </label>
+                {% endfor %}
+            </div>
+            {% else %}
+            <input type="hidden" name="size" value="Wrap">
+            <p class="helper-text">Wrap entree (${{ '%.2f'|format(entree_items[0].price if entree_items else 8.49) }})</p>
+            {% endif %}
+            <label class="field-label" for="bread">Bread / Wrap Type</label>
+            <select id="bread" name="bread">
+                <option value="">Select...</option>
+                {% for item in bread_items %}
+                <option value="{{ item.name }}" {% if order.bread == item.name %}selected{% endif %}>{{ item.name }} | {{ item.calories }} cal | {{ item.protein }}g protein</option>
+                {% endfor %}
+            </select>
+        </section>
+
+        <section class="builder-section">
+            <div class="section-heading">
+                <img src="{{ url_for('static', filename='assets/protein.png') }}" alt="Protein">
+                <h2>Protein</h2>
+            </div>
+            <div class="radio-list">
+                <label class="option-row">
+                    <span class="option-control"><input type="radio" name="protein" value="{{ unset }}" {% if not order.protein %}checked{% endif %}></span>
+                    <span class="option-name">No selection yet</span>
+                    <span class="option-meta"></span>
+                </label>
+                {% for item in protein_items %}
+                <label class="option-row">
+                    <span class="option-control"><input type="radio" name="protein" value="{{ item.name }}" {% if order.protein == item.name %}checked{% endif %}></span>
+                    <span class="option-name">{{ item.name }}</span>
+                    <span class="option-meta">{{ item.calories }} cal | {{ item.protein }}g protein</span>
+                </label>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="builder-section">
+            <div class="section-heading">
+                <img src="{{ url_for('static', filename='assets/cheese.png') }}" alt="Cheese">
+                <h2>Cheese</h2>
+            </div>
+            <div class="radio-list">
+                <label class="option-row">
+                    <span class="option-control"><input type="radio" name="cheese" value="{{ unset }}" {% if not order.cheese %}checked{% endif %}></span>
+                    <span class="option-name">No selection yet</span>
+                    <span class="option-meta"></span>
+                </label>
+                {% for item in cheese_items %}
+                <label class="option-row">
+                    <span class="option-control"><input type="radio" name="cheese" value="{{ item.name }}" {% if order.cheese == item.name %}checked{% endif %}></span>
+                    <span class="option-name">{{ item.name }}</span>
+                    <span class="option-meta">{{ item.calories }} cal | {{ item.protein }}g protein</span>
+                </label>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="builder-section">
+            <div class="section-heading">
+                <img src="{{ url_for('static', filename='assets/toppings.png') }}" alt="Toppings">
+                <h2>Toppings</h2>
+            </div>
+            <div class="check-grid">
+                {% for item in topping_items %}
+                <label class="option-row">
+                    <span class="option-control"><input type="checkbox" name="toppings" value="{{ item.name }}" {% if item.name in order.toppings %}checked{% endif %}></span>
+                    <span class="option-name">{{ item.name }}</span>
+                    <span class="option-meta">{{ item.calories }} cal</span>
+                </label>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="builder-section">
+            <div class="section-heading">
+                <img src="{{ url_for('static', filename='assets/dressings.png') }}" alt="Dressings">
+                <h2>Dressings</h2>
+            </div>
+            <div class="check-grid">
+                {% for item in dressing_items %}
+                <label class="option-row">
+                    <span class="option-control"><input type="checkbox" name="dressings" value="{{ item.name }}" {% if item.name in order.dressings %}checked{% endif %}></span>
+                    <span class="option-name">{{ item.name }}</span>
+                    <span class="option-meta">{{ item.calories }} cal</span>
+                </label>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="builder-section">
+            <div class="section-heading">
+                <img src="{{ url_for('static', filename='assets/addons.png') }}" alt="Add-ons">
+                <h2>Add-ons</h2>
+            </div>
+            <div class="check-grid">
+                {% for item in addon_items %}
+                <label class="option-row">
+                    <span class="option-control"><input type="checkbox" name="addons" value="{{ item.name }}" data-price="{{ item.price }}" data-alt-price="{{ item.alt_price if item.alt_price is not none else '' }}" {% if item.name in order.addons %}checked{% endif %}></span>
+                    <span class="option-name">{{ item.name }}</span>
+                    <span class="option-meta">+${{ '%.2f'|format(item.price) }}{% if item.alt_price %} / +${{ '%.2f'|format(item.alt_price) }}{% endif %}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="button-row">
+            <a class="secondary-button" href="{{ url_for('category') }}">Back</a>
+            <button type="submit">Review Order</button>
+        </div>
+    </form>
+
+    <aside class="summary-panel">
+        <h2>Order Summary</h2>
+        <div class="summary-scroll">
+            <div class="summary-block" id="summary-base-block">
+                <h3>Base</h3>
+                <p id="summary-base"></p>
+            </div>
+            <div class="summary-block" id="summary-protein-block">
+                <h3>Protein</h3>
+                <p id="summary-protein"></p>
+            </div>
+            <div class="summary-block" id="summary-cheese-block">
+                <h3>Cheese</h3>
+                <p id="summary-cheese"></p>
+            </div>
+            <div class="summary-block" id="summary-toppings-block">
+                <h3>Toppings</h3>
+                <p id="summary-toppings"></p>
+            </div>
+            <div class="summary-block" id="summary-dressings-block">
+                <h3>Dressings</h3>
+                <p id="summary-dressings"></p>
+            </div>
+            <div class="summary-block" id="summary-addons-block">
+                <h3>Add-ons</h3>
+                <p id="summary-addons"></p>
+            </div>
+        </div>
+        <div class="summary-total" id="summary-total">{{ order_total }}</div>
+        <button type="submit" form="build-form">Review Order</button>
+    </aside>
+</main>
+<script>
+(() => {
+    const form = document.getElementById("build-form");
+    if (!form) return;
+
+    const page = document.querySelector(".build-layout");
+    const category = page?.dataset.category || "sandwiches";
+    const totalEl = document.getElementById("summary-total");
+    const summaryTargets = {
+        base: document.getElementById("summary-base"),
+        protein: document.getElementById("summary-protein"),
+        cheese: document.getElementById("summary-cheese"),
+        toppings: document.getElementById("summary-toppings"),
+        dressings: document.getElementById("summary-dressings"),
+        addons: document.getElementById("summary-addons"),
+    };
+
+    const blockFor = (key) => document.getElementById(`summary-${key}-block`);
+    const selectedRadio = (name) => form.querySelector(`input[name="${name}"]:checked`);
+    const selectedCheckboxes = (name) => [...form.querySelectorAll(`input[name="${name}"]:checked`)];
+    const selectedOptionText = (selectId) => {
+        const select = document.getElementById(selectId);
+        return select && select.value ? select.value : "";
+    };
+    const formatMoney = (amount) => `$${amount.toFixed(2)}`;
+
+    function setSummary(key, value) {
+        const target = summaryTargets[key];
+        const block = blockFor(key);
+        if (!target || !block) return;
+        target.textContent = value || "";
+        block.style.display = value ? "block" : "none";
+    }
+
+    function updateSummary() {
+        const bread = selectedOptionText("bread");
+        const protein = selectedRadio("protein")?.value || "";
+        const cheese = selectedRadio("cheese")?.value || "";
+        const toppings = selectedCheckboxes("toppings").map((item) => item.value);
+        const dressings = selectedCheckboxes("dressings").map((item) => item.value);
+        const addons = selectedCheckboxes("addons");
+
+        let baseText = "";
+        let total = 0;
+
+        if (category === "sandwiches") {
+            const sizeInput = selectedRadio("size");
+            const size = sizeInput && sizeInput.value !== "{{ unset }}" ? sizeInput.value : "";
+            if (size) {
+                total += Number(sizeInput.dataset.price || 0);
+            }
+            if (size && bread) {
+                baseText = `${size} Sandwich on ${bread}`;
+            } else if (size) {
+                baseText = `${size} Sandwich`;
+            } else if (bread) {
+                baseText = `Sandwich on ${bread}`;
+            }
+        } else {
+            const wrapPrice = {{ '%.2f'|format(entree_items[0].price if entree_items else 8.49) }};
+            total += wrapPrice;
+            baseText = bread ? `${bread} Wrap` : "Wrap";
+        }
+
+        addons.forEach((item) => {
+            const basePrice = Number(item.dataset.price || 0);
+            const altPrice = item.dataset.altPrice ? Number(item.dataset.altPrice) : null;
+            const sandwichSize = selectedRadio("size")?.value || "";
+            total += (category === "sandwiches" && sandwichSize === '12"' && altPrice !== null) ? altPrice : basePrice;
+        });
+
+        setSummary("base", baseText);
+        setSummary("protein", protein && protein !== "{{ unset }}" ? protein : "");
+        setSummary("cheese", cheese && cheese !== "{{ unset }}" ? cheese : "");
+        setSummary("toppings", toppings.join(", "));
+        setSummary("dressings", dressings.join(", "));
+        setSummary("addons", addons.map((item) => item.value).join(", "));
+        if (totalEl) {
+            totalEl.textContent = formatMoney(total);
+        }
+    }
+
+    form.addEventListener("change", updateSummary);
+    form.addEventListener("input", updateSummary);
+    updateSummary();
+})();
+</script>
+{% endblock %}

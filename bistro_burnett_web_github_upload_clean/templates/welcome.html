@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block header_title %}Welcome{% endblock %}
+{% block body %}
+<main class="hero-screen">
+    <div class="overlay"></div>
+    <section class="form-card centered-card">
+        <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Bistro Burnett" class="logo-large">
+        <h2>Welcome! Let's get started.</h2>
+        <p>Welcome to Bistro Burnett Ordering App! You can now skip the line and send in your order here.</p>
+        <form method="post" class="stack-form">
+            <label for="phone">Phone Number *</label>
+            <input id="phone" name="phone" type="tel" placeholder="(123) 456-7890" value="{{ phone }}">
+            <small>We'll use this to call your name when your order is ready.</small>
+            <button type="submit">Continue</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

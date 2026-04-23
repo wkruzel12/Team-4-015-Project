@@ -77,3 +77,5 @@ python app.py
 ## Branching workflow
 
 Use the branch strategy in `CONTRIBUTING.md` to split work into multiple PRs, creating one feature branch at a time from `develop` (frontend first, then backend, then data, then docs).
+Current PR sequencing progress is tracked in `BRANCH_PROGRESS.md`.
+

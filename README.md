@@ -73,3 +73,4 @@ python app.py
 - SQLite is used for the menu only, matching the project requirement.
 - Customer and submitted-order persistence are stored in local JSON files for simplicity.
 - The repository should not include `data/menu.db`, `data/customers.json`, or `data/orders.json`; those are created locally when the app runs.
+

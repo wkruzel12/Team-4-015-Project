@@ -147,10 +147,9 @@ def create_app() -> Flask:
         if request.method == "POST":
             raw_phone = request.form.get("phone", "").strip()
             digits = re.sub(r"\D", "", raw_phone)
-            pattern = re.compile(r"^(\(\d{3}\)\s?\d{3}-?\d{4}|\d{3}[-\s]?\d{3}[-\s]?\d{4})$")
-            if not raw_phone or len(digits) != 10 or not pattern.match(raw_phone):
-                flash("Use (123) 456-7890, 123-456-7890, or 123 456 7890.", "error")
-                return render_template("welcome.html", phone=raw_phone)
+            if len(digits) != 10:
+                flash("Phone number must contain exactly 10 digits.", "error")
+                return render_template("welcome.html", phone=digits)
 
             customer["phone"] = digits
             session["customer"] = customer

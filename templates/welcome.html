@@ -9,8 +9,8 @@
         <p>Welcome to Bistro Burnett Ordering App! You can now skip the line and send in your order here.</p>
         <form method="post" class="stack-form">
             <label for="phone">Phone Number *</label>
-            <input id="phone" name="phone" type="tel" placeholder="(123) 456-7890" value="{{ phone }}">
-            <small>We'll use this to call your name when your order is ready.</small>
+            <input id="phone" name="phone" type="tel" inputmode="numeric" pattern="\d{10}" maxlength="10" placeholder="1234567890" value="{{ phone }}" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)">
+            <small>Enter exactly 10 digits with no spaces or symbols.</small>
             <button type="submit">Continue</button>
         </form>
     </section>

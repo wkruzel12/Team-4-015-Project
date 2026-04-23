@@ -27,6 +27,68 @@ This is the browser-based Bistro Burnett ordering prototype for Bistro Burnett, 
 - `static/`: CSS and image assets
 - `data/schema.sql`: visible five-table SQLite schema
 
+## Branch organization
+
+Use the following long-lived branches so work stays in the right place:
+
+- `main`: integration/stable branch for reviewed code.
+- `feature/ui-polish`: UI and styling updates only.
+- `feature/menu-database-admin`: menu admin and database workflow changes.
+- `10-digit-validation-change`: phone-number validation changes.
+
+Recommended workflow:
+
+1. Branch from `main` for each focused task.
+2. Keep each branch scoped to one area listed above.
+3. Run tests/checks before merging into `main`.
+4. Delete short-lived task branches after merge.
+
+### File ownership by branch
+
+Exact file lists (no duplicates):
+
+- `main`
+  - `README.md`
+  - `requirements.txt`
+  - `app.py`
+  - `bistro_burnett_web/__init__.py`
+  - `bistro_burnett_web/app.py` (shared integration file; feature branches should only touch scoped areas)
+
+- `feature/menu-database-admin`
+  - `bistro_burnett_web/db.py`
+  - `bistro_burnett_web/storage.py`
+  - `data/schema.sql`
+  - `templates/menu_admin.html`
+
+- `10-digit-validation-change`
+  - validation sections in `bistro_burnett_web/app.py`
+  - `templates/welcome.html`
+
+- `feature/ui-polish`
+  - `templates/base.html`
+  - `templates/build_order.html`
+  - `templates/category.html`
+  - `templates/confirmation.html`
+  - `templates/customer_info.html`
+  - `templates/name_entry.html`
+  - `templates/payment.html`
+  - `templates/review_order.html`
+  - `static/style.css`
+  - `static/assets/addons.png`
+  - `static/assets/bread.png`
+  - `static/assets/campus_background.png`
+  - `static/assets/cheese.png`
+  - `static/assets/dressings.png`
+  - `static/assets/logo.png`
+  - `static/assets/mascot.png`
+  - `static/assets/protein.png`
+  - `static/assets/sandwich.png`
+  - `static/assets/toppings.png`
+  - `static/assets/wordmark.png`
+  - `static/assets/wrap.png`
+
+Duplicate-root copies were removed from the repository so only the canonical files above remain.
+
 ## Run locally
 
 ```powershell
@@ -73,4 +135,3 @@ python app.py
 - SQLite is used for the menu only, matching the project requirement.
 - Customer and submitted-order persistence are stored in local JSON files for simplicity.
 - The repository should not include `data/menu.db`, `data/customers.json`, or `data/orders.json`; those are created locally when the app runs.
-

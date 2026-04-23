@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block header_title %}Order Confirmation{% endblock %}
+{% block body %}
+<main class="confirmation-screen">
+    <section class="confirmation-card centered-card">
+        <img src="{{ url_for('static', filename='assets/mascot.png') }}" alt="Mascot" class="mascot">
+        <h2>Order Received!</h2>
+        <p>Thank you, {{ customer_name }}!</p>
+        <p class="order-number">Order Number: {{ order_number }}</p>
+        <p>Estimated wait time: 10-15 minutes</p>
+        <div class="message-box">
+            <p>We'll call your name when your order is ready.</p>
+            <p>Please proceed to the counter for payment.</p>
+        </div>
+        <form method="post">
+            <button type="submit">Place Another Order</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

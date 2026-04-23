@@ -1,6 +1,6 @@
 # Bistro Burnett Web Prototype
 
-This is the browser-based Bistro Burnett ordering prototype for Bistro Burnett. It is designed to run locally or in GitHub Codespaces through the browser.
+This is the browser-based Bistro Burnett ordering prototype for Bistro Burnett, which is designed to run either locally or in GitHub Codespaces through the browser!
 
 ## Tech stack
 

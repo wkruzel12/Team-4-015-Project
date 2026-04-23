@@ -73,3 +73,7 @@ python app.py
 - SQLite is used for the menu only, matching the project requirement.
 - Customer and submitted-order persistence are stored in local JSON files for simplicity.
 - The repository should not include `data/menu.db`, `data/customers.json`, or `data/orders.json`; those are created locally when the app runs.
+
+## Branching workflow
+
+Use the branch strategy in `CONTRIBUTING.md` to split work into multiple PRs, creating one feature branch at a time from `develop` (frontend first, then backend, then data, then docs).

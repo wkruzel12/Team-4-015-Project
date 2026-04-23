@@ -74,8 +74,3 @@ python app.py
 - Customer and submitted-order persistence are stored in local JSON files for simplicity.
 - The repository should not include `data/menu.db`, `data/customers.json`, or `data/orders.json`; those are created locally when the app runs.
 
-## Branching workflow
-
-Use the branch strategy in `CONTRIBUTING.md` to split work into multiple PRs, creating one feature branch at a time from `develop` (frontend first, then backend, then data, then docs).
-Current PR sequencing progress is tracked in `BRANCH_PROGRESS.md`.
-
